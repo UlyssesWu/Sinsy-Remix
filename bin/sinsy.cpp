@@ -83,6 +83,7 @@ void usage()
    std::cout << "    MusicXML file" << std::endl;
 }
 
+# sinsy -x dic -m data/model/nitech_jp_song070_f001.htsvoice -w j -o output.wav data/SAMPLE.xml
 int main(int argc, char **argv)
 {
    if (argc < 2) {
