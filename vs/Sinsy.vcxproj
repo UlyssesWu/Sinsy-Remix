@@ -65,7 +65,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\lib\xml;$(SolutionDir)..\lib\util;$(SolutionDir)..\lib\temporary;$(SolutionDir)..\lib\score;$(SolutionDir)..\lib\converter;$(SolutionDir)..\lib\japanese;$(SolutionDir)..\lib\label;$(SolutionDir)..\lib\hts_engine_API;$(SolutionDir)..\lib\hts_engine_API-1.10;$(SolutionDir)..\lib\hts_engine_API-1.10\include;$(SolutionDir)..\lib\hts_engine_API-1.10\bin;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\lib\xml;$(SolutionDir)..\lib\util;$(SolutionDir)..\lib\temporary;$(SolutionDir)..\lib\score;$(SolutionDir)..\lib\converter;$(SolutionDir)..\lib\japanese;$(SolutionDir)..\lib\label;$(SolutionDir)..\lib\hts_engine_API;$(SolutionDir)..\lib\hts_engine_API-1.10;$(SolutionDir)..\lib\hts_engine_API-1.10\include;$(SolutionDir)..\lib\hts_engine_API-1.10\bin;$(SolutionDir)..\lib\chinese;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
