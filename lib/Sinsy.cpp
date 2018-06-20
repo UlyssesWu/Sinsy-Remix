@@ -438,7 +438,7 @@ public:
    }
    
    //! set start time
-   bool setStartTime(const std::string& startTime) {
+   void setStartTime(const std::string& startTime) {
 	   labelStartTime = atof(startTime.c_str());
    }
 
