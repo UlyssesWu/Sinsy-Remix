@@ -44,7 +44,10 @@
 #include <vector>
 #include <limits>
 #include <stdlib.h>
+#include <stdio.h>
 #include <limits.h>
+#include <iostream> 
+#include <fstream> 
 #include "HtsEngine.h"
 #include "LabelStrings.h"
 #include "SynthConditionImpl.h"
@@ -147,15 +150,15 @@ bool HtsEngine::load(const std::vector<std::string>& voices)
 */
 bool HtsEngine::synthesize(const LabelStrings& label, SynthConditionImpl& condition)
 {
+   bool outputLabel = condition.outputLabel;
    // check
-   if (HTS_Engine_get_nvoices(&engine) == 0 || label.size() == 0) {
+   if ((!outputLabel && HTS_Engine_get_nvoices(&engine) == 0) || label.size() == 0) {
       return false;
    }
 
    bool playFlag = condition.playFlag;
    bool saveFlag = !condition.saveFilePath.empty();
    bool storeFlag = (NULL != condition.waveformBuffer);
-   bool outputLabel = condition.outputLabel;
 
    // nothing to do
    if (!playFlag && !saveFlag && !storeFlag) {
@@ -164,8 +167,9 @@ bool HtsEngine::synthesize(const LabelStrings& label, SynthConditionImpl& condit
 
    FILE* fp(NULL);
    if (outputLabel) {
-      fp = fopen(condition.saveFilePath.c_str(), "wb");
-      if (NULL == fp) {
+      std::ofstream ofp;
+	  ofp.open(condition.saveFilePath.c_str(), std::ios::out|std::ios::trunc|std::ios::binary);
+      if (!ofp.is_open()) {
          return false;
       }
       char** lines = (char**) label.getData();
@@ -174,8 +178,8 @@ bool HtsEngine::synthesize(const LabelStrings& label, SynthConditionImpl& condit
           lab += lines[i];
           lab += "\n";
       }
-      fwrite(lab.c_str(), sizeof(std::string), lab.size(), fp);
-      fclose(fp);
+      ofp << lab;
+      ofp.close();
       return true;
    }
    if (saveFlag) {
@@ -206,8 +210,9 @@ bool HtsEngine::synthesize(const LabelStrings& label, SynthConditionImpl& condit
       if(condition.waveformBuffer) {
          size_t numSamples = HTS_Engine_get_nsamples(&engine);
          condition.waveformBuffer->resize(numSamples);
-         for (size_t i = 0; i < numSamples; ++i)
+         for (size_t i = 0; i < numSamples; ++i){
             (*condition.waveformBuffer)[i] = HTS_Engine_get_generated_speech(&engine, i);
+		 }
       }
    }
 
